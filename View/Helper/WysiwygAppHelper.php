@@ -62,7 +62,9 @@ class WysiwygAppHelper extends AppHelper {
  */
 	public function __construct(View $View, $settings = array()) {
 		parent::__construct($View, $settings);
-		$settings = array_merge(array('_editor' => 'tinymce'), (array)$settings);
+
+		$defaults = (array)Configure::read('Wysiwyg.default');
+		$settings = array_merge(array('_editor' => 'tinymce'), $defaults, (array)$settings);
 		$this->_helperOptions = $settings;
 	}
 
@@ -75,7 +77,13 @@ class WysiwygAppHelper extends AppHelper {
  * @return string An HTML input element with Wysiwyg Js
  */
 	public function input($fieldName, $options = array(), $helperOptions = array()) {
-		$helperOptions = Set::merge($this->_helperOptions, $helperOptions);
+		$defaults = array();
+		if (isset($helperOptions['template'])) {
+			$defaults = (array)Configure::read('Wysiwyg.' . $helperOptions['template']);
+			unset($helperOptions['template']);
+		}
+		$defaults = Set::merge($this->_helperOptions, $defaults);
+		$helperOptions = Set::merge($defaults, $helperOptions);
 		return $this->Form->input($fieldName, $options) . $this->_build($fieldName, $helperOptions);
 	}
 
@@ -88,7 +96,13 @@ class WysiwygAppHelper extends AppHelper {
  * @return string An HTML textarea element with Wysiwyg Js
  */
 	public function textarea($fieldName, $options = array(), $helperOptions = array()) {
-		$helperOptions = Set::merge($this->_helperOptions, $helperOptions);
+		$defaults = array();
+		if (isset($helperOptions['template'])) {
+			$defaults = (array)Configure::read('Wysiwyg.' . $helperOptions['template']);
+			unset($helperOptions['template']);
+		}
+		$defaults = Set::merge($this->_helperOptions, $defaults);
+		$helperOptions = Set::merge($defaults, $helperOptions);
 		return $this->Form->textarea($fieldName, $options) . $this->_build($fieldName, $helperOptions);
 	}
 
