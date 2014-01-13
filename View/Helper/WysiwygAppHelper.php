@@ -10,8 +10,6 @@
  *
  * @copyright     Copyright 2009, Jose Diaz-Gonzalez (http://josediazgonzalez.com)
  * @link          http://github.com/josegonzalez/cakephp-wysiwyg-plugin
- * @package       Wysiwyg
- * @subpackage    Wysiwyg.View.Helper
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
@@ -22,7 +20,6 @@ App::uses('AppHelper', 'View/Helper');
  *
  * WysiwygAppHelper encloses all methods needed while working with HTML pages.
  *
- * @package       Wysiwyg.View.Helper
  * @link http://github.com/josegonzalez/cakephp-wysiwyg-plugin
  * @property FormHelper $Form
  * @property HtmlHelper $Html

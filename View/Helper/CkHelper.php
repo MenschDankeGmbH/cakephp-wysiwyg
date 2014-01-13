@@ -9,8 +9,6 @@
  *
  * @copyright     Copyright 2009, Jose Diaz-Gonzalez (http://josediazgonzalez.com)
  * @link          http://github.com/josegonzalez/cakephp-wysiwyg-plugin
- * @package       Wysiwyg
- * @subpackage    Wysiwyg.View.Helper
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
