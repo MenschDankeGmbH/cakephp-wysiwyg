@@ -127,7 +127,9 @@ class WysiwygHelper extends WysiwygAppHelper {
  * @return string
  */
 	public function textarea($field = null, $options = array(), $editorOptions = array()) {
-		return $this->{$this->helper}->textarea($field, $options, $editorOptions);
+		$template = !empty($editorOptions['template']) ? $editorOptions['template'] : 'default';
+		$templateSettings = Configure::read('Wysiwyg.' . $template);
+		return $this->{$this->helper}->textarea($field, $options, $templateSettings);
 	}
 
 }
