@@ -27,7 +27,7 @@ class WysiwygHelper extends WysiwygAppHelper {
  * Default Helper to use
  *
  * @public string
- **/
+ */
 	public $helper = '';
 
 /**
@@ -47,8 +47,7 @@ class WysiwygHelper extends WysiwygAppHelper {
  *
  * @param View $View The View this helper is being attached to.
  * @param array $settings Configuration settings for the helper.
- * @return void
- **/
+ */
 	public function __construct(View $View, $settings = array()) {
 		parent::__construct($View, $settings);
 		$this->changeEditor($this->_helperOptions['_editor']);
@@ -59,7 +58,7 @@ class WysiwygHelper extends WysiwygAppHelper {
  *
  * @param array $helperOptions Each type of wysiwyg helper takes different options.
  * @return void
- **/
+ */
 	public function updateSettings($helperOptions = array()) {
 		$this->_helperOptions = $helperOptions;
 	}
@@ -68,7 +67,7 @@ class WysiwygHelper extends WysiwygAppHelper {
  * Retrieves current helper settings
  *
  * @return array current helper settings
- **/
+ */
 	public function getSettings() {
 		return $this->_helperOptions;
 	}
@@ -80,7 +79,7 @@ class WysiwygHelper extends WysiwygAppHelper {
  * @param array $helperOptions Each type of wysiwyg helper takes different options.
  * @return void
  * @throws MissingHelperException
- **/
+ */
 	public function changeEditor($editor, $helperOptions = array()) {
 		$this->helper = ucfirst($editor);
 

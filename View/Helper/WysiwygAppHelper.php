@@ -59,8 +59,7 @@ class WysiwygAppHelper extends AppHelper {
  *
  * @param View $View The View this helper is being attached to.
  * @param array $settings Configuration settings for the helper.
- * @return void
- **/
+ */
 	public function __construct(View $View, $settings = array()) {
 		parent::__construct($View, $settings);
 		$settings = array_merge(array('_editor' => 'tinymce'), (array)$settings);
@@ -98,7 +97,7 @@ class WysiwygAppHelper extends AppHelper {
  *
  * @param array $options array of css files, javascript files, and css text to enqueue
  * @return void
- **/
+ */
 	protected function _initialize($options = array()) {
 		if ($this->_initialized) {
 			return;
@@ -128,7 +127,7 @@ class WysiwygAppHelper extends AppHelper {
  *
  * @param array $options array of Wysiwyg editor settings
  * @return string json_encoded array of options
- **/
+ */
 	protected function _initializationOptions($options = array()) {
 		$defaults = array(
 			'_buffer' => true,
