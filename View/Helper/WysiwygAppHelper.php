@@ -110,7 +110,7 @@ class WysiwygAppHelper extends AppHelper {
 		$this->_initialized = true;
 		if (!empty($options['_css'])) {
 			foreach ((array)$options['_css'] as $css) {
-				$this->Html->css($css, null, array('inline' => false));
+				$this->Html->css($css, array('inline' => false));
 			}
 		}
 
