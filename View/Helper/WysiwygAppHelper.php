@@ -25,7 +25,6 @@ App::uses('AppHelper', 'View/Helper');
  * @property HtmlHelper $Html
  * @property JsHelper $Js
  */
-
 class WysiwygAppHelper extends AppHelper {
 
 /**
@@ -55,7 +54,7 @@ class WysiwygAppHelper extends AppHelper {
 	protected $_helperOptions = array();
 
 /**
- * Sets the $this->helper to the helper configured in the session
+ * Sets the $this->helper to the helper configured in the session.
  *
  * @param View $View The View this helper is being attached to.
  * @param array $settings Configuration settings for the helper.
@@ -69,7 +68,7 @@ class WysiwygAppHelper extends AppHelper {
 	}
 
 /**
- * Creates an fckeditor input field
+ * Creates a wsyiwyg input field.
  *
  * @param string $fieldName This should be "Modelname.fieldname"
  * @param array $options Each type of input takes different options.
@@ -88,7 +87,7 @@ class WysiwygAppHelper extends AppHelper {
 	}
 
 /**
- * Creates an fckeditor textarea
+ * Creates a wsyiwyg textarea.
  *
  * @param string $fieldName This should be "Modelname.fieldname"
  * @param array $options Each type of input takes different options.
@@ -107,7 +106,7 @@ class WysiwygAppHelper extends AppHelper {
 	}
 
 /**
- * Initialize the helper css and js for a given input field
+ * Initializes the helper css and js for a given input field.
  *
  * @param array $options array of css files, javascript files, and css text to enqueue
  * @return void
@@ -137,7 +136,7 @@ class WysiwygAppHelper extends AppHelper {
 	}
 
 /**
- * Returns a json string containing helper settings
+ * Returns a json string containing helper settings.
  *
  * @param array $options array of Wysiwyg editor settings
  * @return string json_encoded array of options
