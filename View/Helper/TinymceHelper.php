@@ -14,7 +14,6 @@
  * @subpackage    Wysiwyg.View.Helper
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
 App::uses('WysiwygAppHelper', 'Wysiwyg.View/Helper');
 
 class TinymceHelper extends WysiwygAppHelper {
