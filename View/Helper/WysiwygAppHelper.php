@@ -190,7 +190,7 @@ class WysiwygAppHelper extends AppHelper {
 				break;
 		}
 
-		if ($helperOptions['autoFields'] == 'select') {
+		if ($helperOptions['autoFields'] === 'select') {
 			$inputName = 'insertButton';
 			$defaults['setup'] = 'function(editor) { editor.addButton("' . $inputName . '", { text: "Autofields", type: "menubutton", icon: false, menu: [';
 			foreach ($setup as $key => $value) {
