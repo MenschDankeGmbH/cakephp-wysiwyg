@@ -25,41 +25,40 @@ App::uses('AppHelper', 'View/Helper');
  * @property HtmlHelper $Html
  * @property JsHelper $Js
  */
-
 class WysiwygAppHelper extends AppHelper {
 
-/**
- * Helper dependencies
- *
- * @var array
- */
+	/**
+	 * Helper dependencies
+	 *
+	 * @var array
+	 */
 	public $helpers = array('Form', 'Html', 'Js');
 
-/**
- * Whether helper has been initialized once or not
- *
- * @var boolean
- */
+	/**
+	 * Whether helper has been initialized once or not
+	 *
+	 * @var boolean
+	 */
 	protected $_initialized = false;
 
-/**
- * Array of defaults configuration for editors, specified when
- * importing Wysiwyg in your controller. For example:
- *
- *   public $helpers = array(
- *     'Wysiwyg.Tinymce' => array(
- *       'theme_advanced_toolbar_align' => 'right',
- *     )
- *   );
- */
+	/**
+	 * Array of defaults configuration for editors, specified when
+	 * importing Wysiwyg in your controller. For example:
+	 *
+	 *   public $helpers = array(
+	 *     'Wysiwyg.Tinymce' => array(
+	 *       'theme_advanced_toolbar_align' => 'right',
+	 *     )
+	 *   );
+	 */
 	protected $_helperOptions = array();
 
-/**
- * Sets the $this->helper to the helper configured in the session
- *
- * @param View $View The View this helper is being attached to.
- * @param array $settings Configuration settings for the helper.
- */
+	/**
+	 * Sets the $this->helper to the helper configured in the session.
+	 *
+	 * @param View $View The View this helper is being attached to.
+	 * @param array $settings Configuration settings for the helper.
+	 */
 	public function __construct(View $View, $settings = array()) {
 		parent::__construct($View, $settings);
 
@@ -68,14 +67,14 @@ class WysiwygAppHelper extends AppHelper {
 		$this->_helperOptions = $settings;
 	}
 
-/**
- * Creates an fckeditor input field
- *
- * @param string $fieldName This should be "Modelname.fieldname"
- * @param array $options Each type of input takes different options.
- * @param array $helperOptions Each type of wysiwyg helper takes different options.
- * @return string An HTML input element with Wysiwyg Js
- */
+	/**
+	 * Creates a wsyiwyg input field.
+	 *
+	 * @param string $fieldName This should be "fieldname"
+	 * @param array $options Each type of input takes different options.
+	 * @param array $helperOptions Each type of wysiwyg helper takes different options.
+	 * @return string An HTML input element with Wysiwyg Js
+	 */
 	public function input($fieldName, $options = array(), $helperOptions = array()) {
 		$model = false;
 		if (!empty($this->request->params['models'])) {
@@ -85,14 +84,14 @@ class WysiwygAppHelper extends AppHelper {
 		return $this->Form->input($fieldName, $options) . $this->_build($model . $fieldName, $helperOptions);
 	}
 
-/**
- * Creates an fckeditor textarea
- *
- * @param string $fieldName This should be "Modelname.fieldname"
- * @param array $options Each type of input takes different options.
- * @param array $helperOptions Each type of wysiwyg helper takes different options.
- * @return string An HTML textarea element with Wysiwyg Js
- */
+	/**
+	 * Creates a wsyiwyg textarea.
+	 *
+	 * @param string $fieldName This should be "fieldname"
+	 * @param array $options Each type of input takes different options.
+	 * @param array $helperOptions Each type of wysiwyg helper takes different options.
+	 * @return string An HTML textarea element with Wysiwyg Js
+	 */
 	public function textarea($fieldName, $options = array(), $helperOptions = array()) {
 		$model = false;
 		if (!empty($this->request->params['models'])) {
@@ -102,12 +101,12 @@ class WysiwygAppHelper extends AppHelper {
 		return $this->Form->textarea($fieldName, $options) . $this->_build($model . $fieldName, $helperOptions);
 	}
 
-/**
- * Initialize the helper css and js for a given input field
- *
- * @param array $options array of css files, javascript files, and css text to enqueue
- * @return void
- */
+	/**
+	 * Initializes the helper css and js for a given input field.
+	 *
+	 * @param array $options array of css files, javascript files, and css text to enqueue
+	 * @return void
+	 */
 	protected function _initialize($options = array()) {
 		if ($this->_initialized) {
 			return;
@@ -132,12 +131,12 @@ class WysiwygAppHelper extends AppHelper {
 		}
 	}
 
-/**
- * Returns a json string containing helper settings
- *
- * @param array $options array of Wysiwyg editor settings
- * @return string json_encoded array of options
- */
+	/**
+	 * Returns a json string containing helper settings.
+	 *
+	 * @param array $options array of Wysiwyg editor settings
+	 * @return string json_encoded array of options
+	 */
 	protected function _initializationOptions($options = array()) {
 		$defaults = array(
 			'_buffer' => true,
@@ -147,20 +146,10 @@ class WysiwygAppHelper extends AppHelper {
 			'_editor' => true,
 		);
 
-		$settings = array_diff_key(array_merge($defaults, (array)$options), $defaults);
-
-		$value_arr = array();
-		$replace_keys = array();
-		foreach ($settings as $key => &$value) {
-			if (strpos($value, 'function(') === 0) {
-				$value_arr[] = $value;
-				$value = '%' . $key . '%';
-				$replace_keys[] = '"' . $value . '"';
-			}
-		}
-		$json = json_encode($settings);
-		$json = str_replace($replace_keys, $value_arr, $json);
-		return $json;
+		return json_encode(array_diff_key(array_merge(
+			$defaults,
+			(array)$options
+		), $defaults));
 	}
 
 	/**
