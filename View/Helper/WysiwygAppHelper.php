@@ -77,11 +77,13 @@ class WysiwygAppHelper extends AppHelper {
 	 */
 	public function input($fieldName, $options = array(), $helperOptions = array()) {
 		$model = false;
+		$append = false;
 		if (!empty($this->request->params['models'])) {
-			$model = key($this->request->params['models']) . '.';
+			$model = key($this->request->params['models']);
+			$append = '.';// The $fieldName for _build should look like this 'Model.fieldName'
 		}
 		$helperOptions = $this->_formatOptions($model, $helperOptions);
-		return $this->Form->input($fieldName, $options) . $this->_build($model . $fieldName, $helperOptions);
+		return $this->Form->input($fieldName, $options) . $this->_build($model . $append . $fieldName, $helperOptions);
 	}
 
 	/**
@@ -94,11 +96,13 @@ class WysiwygAppHelper extends AppHelper {
 	 */
 	public function textarea($fieldName, $options = array(), $helperOptions = array()) {
 		$model = false;
+		$append = false;
 		if (!empty($this->request->params['models'])) {
-			$model = key($this->request->params['models']) . '.';
+			$model = key($this->request->params['models']);
+			$append = '.';
 		}
 		$helperOptions = $this->_formatOptions($model, $helperOptions);
-		return $this->Form->textarea($fieldName, $options) . $this->_build($model . $fieldName, $helperOptions);
+		return $this->Form->textarea($fieldName, $options) . $this->_build($model . $append . $fieldName, $helperOptions);
 	}
 
 	/**
@@ -146,10 +150,21 @@ class WysiwygAppHelper extends AppHelper {
 			'_editor' => true,
 		);
 
-		return json_encode(array_diff_key(array_merge(
-			$defaults,
-			(array)$options
-		), $defaults));
+		$settings = array_diff_key(array_merge($defaults, (array)$options), $defaults);
+
+		$value_arr = array();
+		$replace_keys = array();
+		foreach ($settings as $key => $value) {
+			if (strpos($value, 'function(') === 0) {
+				$value_arr[] = $value;
+				$value = '%' . $key . '%';
+				$replace_keys[] = '"' . $value . '"';
+				$settings[$key] = $value;
+			}
+		}
+		$json = json_encode($settings);
+		$json = str_replace($replace_keys, $value_arr, $json);
+		return $json;
 	}
 
 	/**
@@ -194,7 +209,7 @@ class WysiwygAppHelper extends AppHelper {
 			$inputName = 'insertButton';
 			$defaults['setup'] = 'function(editor) { editor.addButton("' . $inputName . '", { text: "Autofields", type: "menubutton", icon: false, menu: [';
 			foreach ($setup as $key => $value) {
-				$defaults['setup'] .= '{text: "' . $value['label'] . '", label: "Select :", icon: false, onclick: function() { editor.insertContent("' . $value['output'] . '"); }},';
+				$defaults['setup'] .= '{text: "' . $value['label'] . '", icon: false, onclick: function() { editor.insertContent("' . $value['output'] . '"); }},';
 			}
 			$defaults['setup'] .= ']});}';
 			$defaults['toolbar'] .= ' | '.$inputName;
@@ -202,13 +217,12 @@ class WysiwygAppHelper extends AppHelper {
 			$defaults['toolbar'] .= ' |';
 			$defaults['setup'] = 'function(editor) {';
 			foreach ($setup as $key => $value) {
-				$defaults['setup'] .= 'editor.addButton("insertButton' . ucfirst($key) . '", { text: "' . $value['label'] . '", label: "Select :", icon: false, onclick: function() { editor.insertContent("' . $value['output'] . '"); }});';
+				$defaults['setup'] .= 'editor.addButton("insertButton' . ucfirst($key) . '", { text: "' . $value['label'] . '", icon: false, onclick: function() { editor.insertContent("' . $value['output'] . '"); }});';
 				$defaults['toolbar'] .= ' insertButton' . ucfirst($key);
 			}
 			$defaults['setup'] .= '}';
 		}
 		unset($helperOptions['autoFields']);
-
 		$helperOptions = Set::merge($defaults, $helperOptions);
 		return $helperOptions;
 	}
