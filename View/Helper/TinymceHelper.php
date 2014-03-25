@@ -38,6 +38,8 @@ class TinymceHelper extends WysiwygAppHelper {
  */
 	protected function _build($fieldName, $options = array()) {
 		$options = array_merge(array(
+			'relative_urls' => false,
+			'remove_script_host' => false,
 			'_buffer' => false,
 			'_scripts' => array(
 				'core' => 'tinymce/tinymce.min.js',
