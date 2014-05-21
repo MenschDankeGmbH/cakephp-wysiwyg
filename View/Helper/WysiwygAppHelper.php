@@ -78,7 +78,7 @@ class WysiwygAppHelper extends AppHelper {
 	public function input($fieldName, $options = array(), $helperOptions = array()) {
 		$model = false;
 		$append = false;
-		if (!empty($this->request->params['models'])) {
+		if (!empty($this->request->params['models']) && empty($helperOptions['dontUseModel'])) {
 			$model = key($this->request->params['models']);
 			$append = '.';// The $fieldName for _build should look like this 'Model.fieldName'
 		}
