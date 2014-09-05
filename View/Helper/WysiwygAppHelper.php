@@ -182,6 +182,10 @@ class WysiwygAppHelper extends AppHelper {
 			$defaults = (array)Configure::read('Wysiwyg.' . $helperOptions['template']);
 			unset($helperOptions['template']);
 		}
+		if (isset($helperOptions['useThisModel'])) {
+			$model = $helperOptions['useThisModel'];
+			unset($helperOptions['useThisModel']);
+		}
 		$defaults = Set::merge($this->_helperOptions, $defaults);
 		if (empty($helperOptions['autoFields'])) {
 			return Set::merge($defaults, $helperOptions);
@@ -197,14 +201,14 @@ class WysiwygAppHelper extends AppHelper {
 				break;
 			case 'Shop':
 				$setup = array('shop' => array('label' => 'Shopname', 'output' => '{SHOP}'),
+						'shopname' => array('label' => __('Shop Link'), 'output' => '{SHOP-LINK}'),
 						'date' => array('label' => __('Current Date'), 'output' => '{DATE}'),
 					);
 				break;
 			default:
-				$setup = array();
+				$setup = array('date' => array('label' => __('Current Date'), 'output' => '{DATE}'));
 				break;
 		}
-
 		if ($helperOptions['autoFields'] === 'select') {
 			$inputName = 'insertButton';
 			$defaults['setup'] = 'function(editor) { editor.addButton("' . $inputName . '", { text: "Autofields", type: "menubutton", icon: false, menu: [';
