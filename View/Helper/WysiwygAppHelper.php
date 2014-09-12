@@ -190,23 +190,25 @@ class WysiwygAppHelper extends AppHelper {
 		if (empty($helperOptions['autoFields'])) {
 			return Set::merge($defaults, $helperOptions);
 		}
+		$setup = array(
+			'date' => array('label' => __('Current Date'), 'output' => '{DATE}'),
+			'year' => array('label' => __('Current Year'), 'output' => '{YEAR}'),
+			'month' => array('label' => __('Current Month'), 'output' => '{MONTH}'),
+		);
 		switch ($model) {
 			case 'Offer':
-				$setup = array('shop' => array('label' => 'Shopname', 'output' => '{SHOP}'),
-						'date' => array('label' => __('Current Date'), 'output' => '{DATE}'),
-						'start' => array('label' => __('Startdate'), 'output' => '{START}'),
-						'end' => array('label' => __('Enddate'), 'output' => '{END}'),
-						'worth' => array('label' => __('Worth'), 'output' => '{VALUE}'),
-					);
+				$setup += array('shop' => array('label' => 'Shopname', 'output' => '{SHOP}'),
+					'shopname' => array('label' => __('Shop Link'), 'output' => '{SHOP-LINK}'),
+					'start' => array('label' => __('Startdate'), 'output' => '{START}'),
+					'end' => array('label' => __('Enddate'), 'output' => '{END}'),
+					'worth' => array('label' => __('Worth'), 'output' => '{VALUE}'),
+				);
 				break;
 			case 'Shop':
-				$setup = array('shop' => array('label' => 'Shopname', 'output' => '{SHOP}'),
-						'shopname' => array('label' => __('Shop Link'), 'output' => '{SHOP-LINK}'),
-						'date' => array('label' => __('Current Date'), 'output' => '{DATE}'),
-					);
-				break;
-			default:
-				$setup = array('date' => array('label' => __('Current Date'), 'output' => '{DATE}'));
+				$setup += array('shop' => array('label' => 'Shopname', 'output' => '{SHOP}'),
+					'shopname' => array('label' => __('Shop Link'), 'output' => '{SHOP-LINK}'),
+					'topoffer' => array('label' => __('Amount top Offer'), 'output' => '{AMOUNTTOPOFFER}'),
+				);
 				break;
 		}
 		if ($helperOptions['autoFields'] === 'select') {
