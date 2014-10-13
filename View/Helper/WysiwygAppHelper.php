@@ -32,7 +32,7 @@ class WysiwygAppHelper extends AppHelper {
 	 *
 	 * @var array
 	 */
-	public $helpers = array('Form', 'Html', 'Js');
+	public $helpers = array('Form', 'Html', 'Js', 'BootstrapForm');
 
 	/**
 	 * Whether helper has been initialized once or not
@@ -83,7 +83,7 @@ class WysiwygAppHelper extends AppHelper {
 			$append = '.';// The $fieldName for _build should look like this 'Model.fieldName'
 		}
 		$helperOptions = $this->_formatOptions($model, $helperOptions);
-		return $this->Form->input($fieldName, $options) . $this->_build($model . $append . $fieldName, $helperOptions);
+		return $this->BootstrapForm->input($fieldName, $options) . $this->_build($model . $append . $fieldName, $helperOptions);
 	}
 
 	/**
@@ -102,7 +102,7 @@ class WysiwygAppHelper extends AppHelper {
 			$append = '.';
 		}
 		$helperOptions = $this->_formatOptions($model, $helperOptions);
-		return $this->Form->textarea($fieldName, $options) . $this->_build($model . $append . $fieldName, $helperOptions);
+		return $this->BootstrapForm->textarea($fieldName, $options) . $this->_build($model . $append . $fieldName, $helperOptions);
 	}
 
 	/**

@@ -42,7 +42,7 @@ class TinymceHelper extends WysiwygAppHelper {
 			'remove_script_host' => false,
 			'_buffer' => false,
 			'_scripts' => array(
-				'core' => 'tinymce/tinymce.min.js',
+				'core' => '/asset/tinymce/tinymce.min.js',
 			),
 		), $options);
 
