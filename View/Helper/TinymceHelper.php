@@ -43,6 +43,8 @@ class TinymceHelper extends WysiwygAppHelper {
 			'_buffer' => false,
 			'_scripts' => array(
 				'core' => '/asset/tinymce/tinymce.min.js',
+				'/js/admin/tinymce.charcount.min.js',
+				'/js/admin/jbimages/plugin.min.js'
 			),
 		), $options);
 
