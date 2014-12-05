@@ -217,13 +217,17 @@ class WysiwygAppHelper extends AppHelper {
 			foreach ($setup as $key => $value) {
 				$defaults['setup'] .= '{text: "' . $value['label'] . '", icon: false, onclick: function() { editor.insertContent("' . $value['output'] . '"); }},';
 			}
-			$defaults['setup'] .= ']});}';
+			$defaults['setup'] .= ']}); editor.on("keyup", function(e) { var text = editor.getElement(); $("#" + text.id).val(editor.getContent()); $("#" + text.id).trigger("change"); });}';
 			$defaults['toolbar'] .= ' | '.$inputName;
 		} else {
 			$defaults['toolbar'] .= ' |';
 			$defaults['setup'] = 'function(editor) {';
 			foreach ($setup as $key => $value) {
-				$defaults['setup'] .= 'editor.addButton("insertButton' . ucfirst($key) . '", { text: "' . $value['label'] . '", icon: false, onclick: function() { editor.insertContent("' . $value['output'] . '"); }});';
+				$defaults['setup'] .= 'editor.addButton("insertButton' . ucfirst($key) .
+					'", { text: "' . $value['label'] . '", icon: false, onclick: function() { editor.insertContent("' .
+					$value['output'] . '"); }' .
+					'editor.on("keyup", function(e) { var text = editor.getElement(); $("#" + text.id).val(editor.getContent()); $("#" + text.id).trigger("change"); });' .
+					'});';
 				$defaults['toolbar'] .= ' insertButton' . ucfirst($key);
 			}
 			$defaults['setup'] .= '}';
